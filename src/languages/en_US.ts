@@ -4,8 +4,9 @@ const english: Language = {
   // COMMON STRINGS
 
   MISSING_MEMBER: "No member was found.",
-  MISSING_PERM_LEVEL: "You do not have the necessary permissions to use this command.",
-  
+  MISSING_PERM_LEVEL:
+    "You do not have the necessary permissions to use this command.",
+
   // COMMANDS STRINGS
 
   // Avatar Command
@@ -30,7 +31,8 @@ const english: Language = {
   // Ping Command
   PING_NAME: "ping",
   PING_DESCRIPTION: "Check whether the bot is online and responsive.",
-  PING_RESPONSE: "Pong! Discordeno Best Lib!",
+  PING_RESPONSE:
+    ":ping_pong: Pong! I am online and responsive! :clock10:",
 };
 
 export default english;
