@@ -15,6 +15,14 @@ const english: Language = {
   AVATAR_USER_NAME: "user",
   AVATAR_USER_DESCRIPTION: "Provide a @user to view their avatar.",
 
+  // Invite Command
+  INVITE_NAME: "invite",
+  INVITE_DESCRIPTION:
+    "🔗 Invite the bot to your server or get help in the support server.",
+  INVITE_RESPONSE: "🏓 Pong! I am online and responsive! :clock10:",
+  INVITE_BOT: "Invite The Bot",
+  INVITE_NEED_SUPPORT: "Need Help?",
+
   // Language Command
   LANGUAGE_NAME: "language",
   LANGUAGE_DESCRIPTION: "Change the bots language.",
@@ -31,8 +39,7 @@ const english: Language = {
   // Ping Command
   PING_NAME: "ping",
   PING_DESCRIPTION: "Check whether the bot is online and responsive.",
-  PING_RESPONSE:
-    "🏓 Pong! I am online and responsive! :clock10:",
+  PING_RESPONSE: "🏓 Pong! I am online and responsive! :clock10:",
 };
 
 export default english;
