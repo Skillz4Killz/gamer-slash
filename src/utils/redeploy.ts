@@ -1,4 +1,5 @@
 import {
+  ApplicationCommandOption,
   decode,
   json,
   rest,
@@ -130,36 +131,10 @@ export async function updateDevCommands() {
             `${name.toUpperCase()}_DESCRIPTION`,
           );
 
-          console.log(command!.options?.map((option) => {
-            const optionName = translate(guildId, option.name);
-            const optionDescription = translate(
-              guildId,
-              option.description,
-            );
-
-            return {
-              ...option,
-              name: optionName,
-              description: optionDescription || "No description available.",
-            };
-          }));
-
           return {
             name: translatedName || name,
             description: translatedDescription || command!.description,
-            options: command!.options?.map((option) => {
-              const optionName = translate(guildId, option.name);
-              const optionDescription = translate(
-                guildId,
-                option.description,
-              );
-
-              return {
-                ...option,
-                name: optionName,
-                description: optionDescription || "No description available.",
-              };
-            }),
+            options: createOptions(guildId, command!.options),
           };
         },
       ),
@@ -183,24 +158,34 @@ export async function updateDevCommands() {
           return {
             name: translatedName || name,
             description: translatedDescription || command!.description,
-            options: command!.options?.map((option) => {
-              const optionName = translate(guildId, option.name);
-              console.log('name', option.name, optionName);
-              const optionDescription = translate(
-                guildId,
-                option.description,
-              );
-              console.log('description', option.description, optionDescription);
-
-              return {
-                ...option,
-                name: optionName,
-                description: optionDescription || "No description available.",
-              };
-            }),
+            options: createOptions(guildId, command!.options),
           };
         },
       ),
     snowflakeToBigint(guildId),
   );
+}
+
+function createOptions(
+  guildId: string,
+  options?: ApplicationCommandOption[],
+): ApplicationCommandOption[] | undefined {
+  return options?.map((option) => {
+    const optionName = translate(guildId, option.name);
+    console.log("name", option.name, optionName);
+    const optionDescription = translate(
+      guildId,
+      option.description,
+    );
+    console.log("description", option.description, optionDescription);
+
+    return {
+      ...option,
+      name: optionName,
+      description: optionDescription || "No description available.",
+      options: option.options
+        ? createOptions(guildId, option.options)
+        : undefined,
+    };
+  });
 }
