@@ -1,13 +1,10 @@
-import {
-  Interaction,
-  sendWebhook,
-  snowflakeToBigint,
-} from "../../deps.ts";
+import { Interaction, sendWebhook, snowflakeToBigint } from "../../deps.ts";
 import { Embed } from "./Embed.ts";
 
 export async function logWebhook(payload: Interaction) {
   const webhook = Deno.env.get("DISCORD_LOGS_WEBHOOK");
   if (!webhook) return;
+
   const [id, token] = webhook.substring(webhook.indexOf("webhooks/") + 9)
     .split("/");
   const user = payload.member?.user || payload.user!;
@@ -19,6 +16,7 @@ export async function logWebhook(payload: Interaction) {
     ).addField("Channel", payload.channelId || "Channel ID unavailable", true)
     .addField("Guild", payload.guildId || "Guild ID unavailable", true);
 
+  console.log("embed", embed);
   await sendWebhook(snowflakeToBigint(id), token, {
     embeds: [embed],
   });
