@@ -130,6 +130,20 @@ export async function updateDevCommands() {
             `${name.toUpperCase()}_DESCRIPTION`,
           );
 
+          console.log(command!.options?.map((option) => {
+            const optionName = translate(guildId, option.name);
+            const optionDescription = translate(
+              guildId,
+              option.description,
+            );
+
+            return {
+              ...option,
+              name: optionName,
+              description: optionDescription || "No description available.",
+            };
+          }));
+
           return {
             name: translatedName || name,
             description: translatedDescription || command!.description,
