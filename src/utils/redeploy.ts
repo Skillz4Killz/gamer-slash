@@ -3,6 +3,7 @@ import {
   json,
   rest,
   setApplicationId,
+  snowflakeToBigint,
   upsertSlashCommands,
 } from "../../deps.ts";
 import { commands } from "../commands/mod.ts";
@@ -67,7 +68,8 @@ export async function updateGuildCommands(guildId: string) {
   await upsertSlashCommands(
     Object.entries(commands)
       // ONLY GUILD COMMANDS
-      .filter(([_name, command]) => command!.guild !== false && !command?.dev).map(
+      .filter(([_name, command]) => command!.guild !== false && !command?.dev)
+      .map(
         ([name, command]) => {
           // USER OPTED TO USE BASIC VERSION ONLY
           if (command!.advanced === false) {
@@ -107,9 +109,9 @@ export async function updateGuildCommands(guildId: string) {
           };
         },
       ),
+    snowflakeToBigint(guildId),
   );
 }
-
 
 export async function updateDevCommands() {
   const guildId = "800080308921696296";
@@ -147,5 +149,6 @@ export async function updateDevCommands() {
           };
         },
       ),
+    snowflakeToBigint(guildId),
   );
 }
