@@ -185,10 +185,12 @@ export async function updateDevCommands() {
             description: translatedDescription || command!.description,
             options: command!.options?.map((option) => {
               const optionName = translate(guildId, option.name);
+              console.log('name', option.name, optionName);
               const optionDescription = translate(
                 guildId,
                 option.description,
               );
+              console.log('description', option.description, optionDescription);
 
               return {
                 ...option,
