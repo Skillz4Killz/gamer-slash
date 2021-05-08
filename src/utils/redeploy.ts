@@ -115,10 +115,46 @@ export async function updateGuildCommands(guildId: string) {
 
 export async function updateDevCommands() {
   const guildId = "800080308921696296";
-  // GUILD RELATED COMMANDS
+
+  console.log(
+    Object.entries(commands)
+      // ONLY DEV COMMANDS
+      .filter(([_name, command]) => command?.dev).map(
+        ([name, command]) => {
+          const translatedName = translate(
+            guildId,
+            `${name.toUpperCase()}_NAME`,
+          );
+          const translatedDescription = translate(
+            guildId,
+            `${name.toUpperCase()}_DESCRIPTION`,
+          );
+
+          return {
+            name: translatedName || name,
+            description: translatedDescription || command!.description,
+            options: command!.options?.map((option) => {
+              const optionName = translate(guildId, option.name);
+              const optionDescription = translate(
+                guildId,
+                option.description,
+              );
+
+              return {
+                ...option,
+                name: optionName,
+                description: optionDescription || "No description available.",
+              };
+            }),
+          };
+        },
+      ),
+  );
+
+  // DEV RELATED COMMANDS
   await upsertSlashCommands(
     Object.entries(commands)
-      // ONLY GUILD COMMANDS
+      // ONLY DEV COMMANDS
       .filter(([_name, command]) => command?.dev).map(
         ([name, command]) => {
           const translatedName = translate(
