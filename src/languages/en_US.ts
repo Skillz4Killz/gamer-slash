@@ -32,7 +32,7 @@ const english: Language = {
   PING_NAME: "ping",
   PING_DESCRIPTION: "Check whether the bot is online and responsive.",
   PING_RESPONSE:
-    ":ping_pong: Pong! I am online and responsive! :clock10:",
+    "🏓 Pong! I am online and responsive! :clock10:",
 };
 
 export default english;
