@@ -19,5 +19,6 @@ export async function logWebhook(payload: Interaction) {
   console.log("embed", embed);
   await sendWebhook(snowflakeToBigint(id), token, {
     embeds: [embed],
-  });
+    wait: false
+  }).catch(console.error);
 }
