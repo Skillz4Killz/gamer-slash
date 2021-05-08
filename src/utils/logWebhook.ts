@@ -16,9 +16,8 @@ export async function logWebhook(payload: Interaction) {
     ).addField("Channel", payload.channelId || "Channel ID unavailable", true)
     .addField("Guild", payload.guildId || "Guild ID unavailable", true);
 
-  console.log("embed", embed);
   await sendWebhook(snowflakeToBigint(id), token, {
     embeds: [embed],
-    wait: false
+    wait: false,
   }).catch(console.error);
 }
