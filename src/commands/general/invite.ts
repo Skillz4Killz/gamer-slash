@@ -10,14 +10,14 @@ const command: Command = {
         `${emojis.coin} **${
           translate(
             payload.guildId!,
-            "strings:INVITE_BOT",
+            "INVITE_BOT",
           )
         }:** <https://discordapp.com/oauth2/authorize?client_id=270010330782892032&scope=bot+applications.commands&permissions=2111302911>`,
         "",
         `${emojis.bot} **${
           translate(
             payload.guildId!,
-            "strings:NEED_SUPPORT",
+            "INVITE_NEED_SUPPORT",
           )
         }:** discord.gg/J4NqJ72`,
       ].join("\n"),
