@@ -1,6 +1,4 @@
-import {
-  ApplicationCommandOptionTypes,
-} from "../../../deps.ts";
+import { ApplicationCommandOptionTypes } from "../../../deps.ts";
 import translate from "../../languages/translate.ts";
 import { Embed } from "../../utils/Embed.ts";
 import { chooseRandom } from "../../utils/helpers.ts";
@@ -52,7 +50,6 @@ const command: Command = {
     },
   ],
   execute: function (payload) {
-    console.log("options, random", payload.data?.options);
     const subcommand = payload.data?.options?.[0];
     if (!subcommand) {
       return {
@@ -73,22 +70,28 @@ const command: Command = {
             .toLocaleString("en-US"),
         };
       }
-      case "advice":
+      case "8ball": {
+        const question = subcommand.options?.[0].value;
+        const embed = new Embed().addField(
+          translate(payload.guildId!, "ANSWER"),
+          chooseRandom(
+            translate(payload.guildId!, "RANDOM_8BALL_QUOTES").split("\n"),
+          ),
+        );
+
+        if (question.length < 250) embed.setTitle(question);
+        else embed.setDescription(question);
+
+        return {
+          embeds: [embed],
+        };
+      }
+      default:
+        // case "advice":
         return {
           content: chooseRandom(
             translate(payload.guildId!, "RANDOM_ADVICE_QUOTES").split("\n"),
           ),
-        };
-      case "8ball":
-        return {
-          embeds: [
-            new Embed().setDescription(subcommand.options?.[0].value).addField(
-              translate(payload.guildId!, "ANSWER"),
-              chooseRandom(
-                translate(payload.guildId!, "RANDOM_8BALL_QUOTES").split("\n"),
-              ),
-            ),
-          ],
         };
     }
   },
