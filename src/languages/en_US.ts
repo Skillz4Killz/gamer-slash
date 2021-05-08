@@ -19,7 +19,6 @@ const english: Language = {
   INVITE_NAME: "invite",
   INVITE_DESCRIPTION:
     "🔗 Invite the bot to your server or get help in the support server.",
-  INVITE_RESPONSE: "🏓 Pong! I am online and responsive! :clock10:",
   INVITE_BOT: "Invite The Bot",
   INVITE_NEED_SUPPORT: "Need Help?",
 
