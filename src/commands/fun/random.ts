@@ -5,7 +5,6 @@ import { chooseRandom } from "../../utils/helpers.ts";
 import { Command } from "../mod.ts";
 
 const command: Command = {
-  dev: true,
   global: true,
   options: [
     {

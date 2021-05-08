@@ -94,19 +94,7 @@ export async function updateGuildCommands(guildId: string) {
           return {
             name: translatedName || name,
             description: translatedDescription || command!.description,
-            options: command!.options?.map((option) => {
-              const optionName = translate(guildId, option.name);
-              const optionDescription = translate(
-                guildId,
-                option.description,
-              );
-
-              return {
-                ...option,
-                name: optionName,
-                description: optionDescription || "No description available.",
-              };
-            }),
+            options: createOptions(guildId, command!.options)
           };
         },
       ),
@@ -116,29 +104,6 @@ export async function updateGuildCommands(guildId: string) {
 
 export async function updateDevCommands() {
   const guildId = "800080308921696296";
-
-  console.log(
-    Object.entries(commands)
-      // ONLY DEV COMMANDS
-      .filter(([_name, command]) => command?.dev).map(
-        ([name, command]) => {
-          const translatedName = translate(
-            guildId,
-            `${name.toUpperCase()}_NAME`,
-          );
-          const translatedDescription = translate(
-            guildId,
-            `${name.toUpperCase()}_DESCRIPTION`,
-          );
-
-          return {
-            name: translatedName || name,
-            description: translatedDescription || command!.description,
-            options: createOptions(guildId, command!.options),
-          };
-        },
-      ),
-  );
 
   // DEV RELATED COMMANDS
   await upsertSlashCommands(
@@ -172,12 +137,10 @@ function createOptions(
 ): ApplicationCommandOption[] | undefined {
   return options?.map((option) => {
     const optionName = translate(guildId, option.name);
-    console.log("name", option.name, optionName);
     const optionDescription = translate(
       guildId,
       option.description,
     );
-    console.log("description", option.description, optionDescription);
 
     return {
       ...option,
