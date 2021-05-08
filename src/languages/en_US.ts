@@ -52,13 +52,22 @@ const english: Language = {
 
   // Random Command
   RANDOM_NAME: "random",
-  RANDOM_DESCRIPTION: "🔢 Pick a random number, send a random advice or ask 8ball a random question.",
+  RANDOM_DESCRIPTION:
+    "🔢 Pick a random number, send a random advice or ask 8ball a random question.",
   RANDOM_NUMBER_TYPE_NAME: "number",
   RANDOM_NUMBER_TYPE_DESCRIPTION: "🔢 Pick a random number",
   RANDOM_NUMBER_MIN_NAME: "minimum",
-  RANDOM_NUMBER_MIN_DESCRIPTION: "🔢 The random number will be higher than this minimum.",
+  RANDOM_NUMBER_MIN_DESCRIPTION:
+    "🔢 The random number will be higher than this minimum.",
   RANDOM_NUMBER_MAX_NAME: "maximum",
-  RANDOM_NUMBER_MAX_DESCRIPTION: "🔢 The random number will be lower than this maximum.",
+  RANDOM_NUMBER_MAX_DESCRIPTION:
+    "🔢 The random number will be lower than this maximum.",
+  RANDOM_8BALL_NAME: "8ball",
+  RANDOM_8BALL_DESCRIPTION: "🔮 Get answers to your questions!",
+  RANDOM_8BALL_QUESTION_NAME: "question",
+  RANDOM_8BALL_QUESTION_DESCRIPTION: "🔮 What question would you like to ask?",
+  RANDOM_ADVICE_NAME: "advice",
+  RANDOM_ADVICE_DESCRIPTION: "🗨️ Receive random advice in the chat.",
 };
 
 export default english;
