@@ -5,6 +5,7 @@ import {
   InteractionResponse,
 } from "../../deps.ts";
 import gifs from "./fun/gifs.ts";
+import random from "./fun/random.ts";
 import avatar from "./general/avatar.ts";
 import invite from "./general/invite.ts";
 import language from "./general/language.ts";
@@ -13,6 +14,7 @@ import { PermissionLevels } from "../utils/permissionLevels.ts";
 
 export const commands: Record<string, Command | undefined> = {
   gifs,
+  random,
   avatar,
   invite,
   language,
