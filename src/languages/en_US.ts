@@ -11,7 +11,7 @@ const english: Language = {
 
   // Avatar Command
   AVATAR_NAME: "avatar",
-  AVATAR_DESCRIPTION: "Shows the avatar of a user or yourself.",
+  AVATAR_DESCRIPTION: "🖼️ Shows the avatar of a user or yourself.",
   AVATAR_USER_NAME: "user",
   AVATAR_USER_DESCRIPTION: "Provide a @user to view their avatar.",
 
@@ -24,7 +24,7 @@ const english: Language = {
 
   // Language Command
   LANGUAGE_NAME: "language",
-  LANGUAGE_DESCRIPTION: "Change the bots language.",
+  LANGUAGE_DESCRIPTION: "⚙️ Change the bots language.",
   LANGUAGE_KEY_NAME: "name",
   LANGUAGE_KEY_DESCRIPTION: "What language would you like to set?",
   LANGUAGE_MISSING_KEY: "No language was provided.",
@@ -37,7 +37,7 @@ const english: Language = {
 
   // Ping Command
   PING_NAME: "ping",
-  PING_DESCRIPTION: "Check whether the bot is online and responsive.",
+  PING_DESCRIPTION: "🏓 Check whether the bot is online and responsive.",
   PING_RESPONSE: "🏓 Pong! I am online and responsive! :clock10:",
 };
 
