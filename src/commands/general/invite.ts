@@ -12,7 +12,7 @@ const command: Command = {
             payload.guildId!,
             "strings:INVITE_BOT",
           )
-        }:** <https://discordapp.com/oauth2/authorize?client_id=${botID}&scope=bot+applications.commands&permissions=2111302911>`,
+        }:** <https://discordapp.com/oauth2/authorize?client_id=270010330782892032&scope=bot+applications.commands&permissions=2111302911>`,
         "",
         `${emojis.bot} **${
           translate(
