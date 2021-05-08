@@ -1,4 +1,4 @@
-import { DiscordApplicationCommandOptionTypes } from "../../../deps.ts";
+import { ApplicationCommandOptionTypes } from "../../../deps.ts";
 import funGifs from "../../constants/gifs.ts";
 import translate from "../../languages/translate.ts";
 import { chooseRandom } from "../../utils/helpers.ts";
@@ -12,7 +12,7 @@ const command: Command = {
       required: true,
       name: "GIF_TYPE_NAME",
       description: "GIF_TYPE_DESCRIPTION",
-      type: DiscordApplicationCommandOptionTypes.String,
+      type: ApplicationCommandOptionTypes.String,
     },
   ],
   execute: function (payload) {
