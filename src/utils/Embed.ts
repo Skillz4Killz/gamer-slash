@@ -64,6 +64,7 @@ export class Embed {
     const finalName = this.enforceLimits
       ? this.fitData(name, embedLimits.authorName)
       : name;
+
     if (typeof iconUrl === "string") {
       this.author = { name: finalName, iconUrl, url };
     } else if (iconUrl) {
@@ -72,10 +73,12 @@ export class Embed {
         iconUrl: avatarURL(
           snowflakeToBigint(iconUrl.id),
           snowflakeToBigint(iconUrl?.discriminator),
-          { avatar: iconUrl.avatar, animated: true },
+          { avatar: iconUrl.avatar!, animated: true },
         ),
         url,
       };
+    } else {
+      this.author = { name: finalName, url };
     }
 
     return this;
@@ -140,7 +143,7 @@ export class Embed {
         url: avatarURL(
           snowflakeToBigint(url.id),
           snowflakeToBigint(url.discriminator),
-          { avatar: url.avatar, animated: true, size: 2048 },
+          { avatar: url.avatar!, animated: true, size: 2048 },
         ),
       };
     }
