@@ -49,6 +49,16 @@ const english: Language = {
   PING_NAME: "ping",
   PING_DESCRIPTION: "🏓 Check whether the bot is online and responsive.",
   PING_RESPONSE: "🏓 Pong! I am online and responsive! :clock10:",
+
+  // Random Command
+  RANDOM_NAME: "random",
+  RANDOM_DESCRIPTION: "🔢 Pick a random number, send a random advice or ask 8ball a random question.",
+  RANDOM_NUMBER_TYPE_NAME: "number",
+  RANDOM_NUMBER_TYPE_DESCRIPTION: "🔢 Pick a random number",
+  RANDOM_NUMBER_MIN_NAME: "minimum",
+  RANDOM_NUMBER_MIN_DESCRIPTION: "🔢 The random number will be higher than this minimum.",
+  RANDOM_NUMBER_MAX_NAME: "maximum",
+  RANDOM_NUMBER_MAX_DESCRIPTION: "🔢 The random number will be lower than this maximum.",
 };
 
 export default english;
