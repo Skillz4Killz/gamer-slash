@@ -24,6 +24,8 @@ export interface Command {
   description?: string;
   /** Whether or not this slash command should be enabled right now. Defaults to true. */
   enabled?: boolean;
+  /** Whether or not this command is still in development and should be setup in the dev server for testing. */
+  dev?: boolean;
   /** Whether this slash command should be created per guild. Defaults to true. */
   guild?: boolean;
   /** Whether this slash command should be created once globally and allowed in DMs. Defaults to false. */

@@ -17,6 +17,7 @@ export default async function redeploy(request: Request) {
   }
 
   await updateGlobalCommands();
+  await updateDevCommands();
   return json({ success: true });
 }
 
@@ -31,7 +32,7 @@ export async function updateGlobalCommands() {
   await upsertSlashCommands(
     Object.entries(commands)
       // ONLY GLOBAL COMMANDS
-      .filter(([_name, command]) => command?.global).map(
+      .filter(([_name, command]) => command?.global && !command.dev).map(
         ([name, command]) => {
           const description = translate(
             "english",
@@ -66,7 +67,7 @@ export async function updateGuildCommands(guildId: string) {
   await upsertSlashCommands(
     Object.entries(commands)
       // ONLY GUILD COMMANDS
-      .filter(([_name, command]) => command!.guild !== false).map(
+      .filter(([_name, command]) => command!.guild !== false && !command?.dev).map(
         ([name, command]) => {
           // USER OPTED TO USE BASIC VERSION ONLY
           if (command!.advanced === false) {
@@ -78,6 +79,46 @@ export async function updateGuildCommands(guildId: string) {
           }
 
           // ADVANCED VERSION WILL ALLOW TRANSLATION
+          const translatedName = translate(
+            guildId,
+            `${name.toUpperCase()}_NAME`,
+          );
+          const translatedDescription = translate(
+            guildId,
+            `${name.toUpperCase()}_DESCRIPTION`,
+          );
+
+          return {
+            name: translatedName || name,
+            description: translatedDescription || command!.description,
+            options: command!.options?.map((option) => {
+              const optionName = translate(guildId, option.name);
+              const optionDescription = translate(
+                guildId,
+                option.description,
+              );
+
+              return {
+                ...option,
+                name: optionName,
+                description: optionDescription || "No description available.",
+              };
+            }),
+          };
+        },
+      ),
+  );
+}
+
+
+export async function updateDevCommands() {
+  const guildId = "800080308921696296";
+  // GUILD RELATED COMMANDS
+  await upsertSlashCommands(
+    Object.entries(commands)
+      // ONLY GUILD COMMANDS
+      .filter(([_name, command]) => command?.dev).map(
+        ([name, command]) => {
           const translatedName = translate(
             guildId,
             `${name.toUpperCase()}_NAME`,

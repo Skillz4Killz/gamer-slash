@@ -14,6 +14,7 @@ const english: Language = {
   AVATAR_DESCRIPTION: "🖼️ Shows the avatar of a user or yourself.",
   AVATAR_USER_NAME: "user",
   AVATAR_USER_DESCRIPTION: "Provide a @user to view their avatar.",
+  AVATAR_DOWNLOAD_LINK: "🔗 Download Link",
 
   // Invite Command
   INVITE_NAME: "invite",
