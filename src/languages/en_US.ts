@@ -6,6 +6,7 @@ const english: Language = {
   MISSING_MEMBER: "No member was found.",
   MISSING_PERM_LEVEL:
     "You do not have the necessary permissions to use this command.",
+  BROKE_DISCORD: "You just broke Discord! Congrats!",
 
   // COMMANDS STRINGS
 
@@ -15,6 +16,14 @@ const english: Language = {
   AVATAR_USER_NAME: "user",
   AVATAR_USER_DESCRIPTION: "Provide a @user to view their avatar.",
   AVATAR_DOWNLOAD_LINK: "🔗 Download Link",
+
+  // Gifs Command
+  GIFS_NAME: "gifs",
+  GIFS_DESCRIPTION: "Sends a random gif.",
+  GIF_TYPE_NAME: "type",
+  GIF_TYPE_DESCRIPTION: "The type of gif such as hug, kiss, cuddle, etc...",
+  GIFS_INVALID_TYPE: (types: string) =>
+    `This type of gif is not available. The valid types are: **${types}**`,
 
   // Invite Command
   INVITE_NAME: "invite",
