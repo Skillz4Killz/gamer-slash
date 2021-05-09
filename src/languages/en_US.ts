@@ -49,6 +49,12 @@ const english: Language = {
   PING_NAME: "ping",
   PING_DESCRIPTION: "🏓 Check whether the bot is online and responsive.",
   PING_RESPONSE: "🏓 Pong! I am online and responsive! :clock10:",
+
+  // Info Command
+  INFO_USER_NAME: "user",
+  INFO_USER_DESCRIPTION: "Get the info of an user",
+  INFO_SERVER_NAME: "server",
+  INFO_SERVER_DESCRIPTION: "Get the info of this server"
 };
 
 export default english;
