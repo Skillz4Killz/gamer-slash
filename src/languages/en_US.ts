@@ -6,8 +6,13 @@ const english: Language = {
   ANSWER: "Answer",
   BROKE_DISCORD: "You just broke Discord! Congrats!",
   MISSING_MEMBER: "No member was found.",
-  MISSING_PERM_LEVEL:
-    "You do not have the necessary permissions to use this command.",
+  MISSING_PERM_LEVEL: "You do not have the necessary permissions to use this command.",
+  NICKNAME: "Nickname",
+  CREATED_ON: "Created On",
+  JOINED_ON: "Joined On",
+  PERMISSIONS: "Permissions",
+  USER_ID: "User ID",
+  ROLES: "Roles",
 
   // COMMANDS STRINGS
 
@@ -23,13 +28,11 @@ const english: Language = {
   GIFS_DESCRIPTION: "Sends a random gif.",
   GIF_TYPE_NAME: "type",
   GIF_TYPE_DESCRIPTION: "The type of gif such as hug, kiss, cuddle, etc...",
-  GIFS_INVALID_TYPE: (types: string) =>
-    `This type of gif is not available. The valid types are: **${types}**`,
+  GIFS_INVALID_TYPE: (types: string) => `This type of gif is not available. The valid types are: **${types}**`,
 
   // Invite Command
   INVITE_NAME: "invite",
-  INVITE_DESCRIPTION:
-    "🔗 Invite the bot to your server or get help in the support server.",
+  INVITE_DESCRIPTION: "🔗 Invite the bot to your server or get help in the support server.",
   INVITE_BOT: "Invite The Bot",
   INVITE_NEED_SUPPORT: "Need Help?",
 
@@ -40,11 +43,8 @@ const english: Language = {
   LANGUAGE_KEY_DESCRIPTION: "What language would you like to set?",
   LANGUAGE_MISSING_KEY: "No language was provided.",
   LANGUAGE_INVALID_KEY: (languages: string[]) =>
-    `I could not find a language with that name. Valid languages are: ${
-      languages.join(" ")
-    }`,
-  LANGUAGE_UPDATED: (language: string) =>
-    `The language has been updated to ${language}`,
+    `I could not find a language with that name. Valid languages are: ${languages.join(" ")}`,
+  LANGUAGE_UPDATED: (language: string) => `The language has been updated to ${language}`,
 
   // Ping Command
   PING_NAME: "ping",
@@ -55,20 +55,18 @@ const english: Language = {
   INFO_USER_NAME: "user",
   INFO_USER_DESCRIPTION: "Get the info of an user",
   INFO_SERVER_NAME: "server",
-  INFO_SERVER_DESCRIPTION: "Get the info of this server"
+  INFO_SERVER_DESCRIPTION: "Get the info of this server",
+  INFO_ADMIN: "Administrator",
 
   // Random Command
   RANDOM_NAME: "random",
-  RANDOM_DESCRIPTION:
-    "🔢 Pick a random number, send a random advice or ask 8ball a random question.",
+  RANDOM_DESCRIPTION: "🔢 Pick a random number, send a random advice or ask 8ball a random question.",
   RANDOM_NUMBER_TYPE_NAME: "number",
   RANDOM_NUMBER_TYPE_DESCRIPTION: "🔢 Pick a random number",
   RANDOM_NUMBER_MIN_NAME: "minimum",
-  RANDOM_NUMBER_MIN_DESCRIPTION:
-    "🔢 The random number will be higher than this minimum.",
+  RANDOM_NUMBER_MIN_DESCRIPTION: "🔢 The random number will be higher than this minimum.",
   RANDOM_NUMBER_MAX_NAME: "maximum",
-  RANDOM_NUMBER_MAX_DESCRIPTION:
-    "🔢 The random number will be lower than this maximum.",
+  RANDOM_NUMBER_MAX_DESCRIPTION: "🔢 The random number will be lower than this maximum.",
   RANDOM_8BALL_NAME: "8ball",
   RANDOM_8BALL_DESCRIPTION: "🔮 Get answers to your questions!",
   RANDOM_8BALL_QUESTION_NAME: "question",
