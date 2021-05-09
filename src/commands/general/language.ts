@@ -1,4 +1,4 @@
-import { DiscordApplicationCommandOptionTypes } from "../../../deps.ts";
+import { ApplicationCommandOptionTypes } from "../../../deps.ts";
 import { Command } from "../mod.ts";
 import languages from "../../languages/mod.ts";
 import translate from "../../languages/translate.ts";
@@ -11,7 +11,7 @@ const command: Command = {
       required: true,
       name: "LANGUAGE_KEY_NAME",
       description: "LANGUAGE_KEY_DESCRIPTION",
-      type: DiscordApplicationCommandOptionTypes.String,
+      type: ApplicationCommandOptionTypes.String,
     },
   ],
   execute: async function (payload) {

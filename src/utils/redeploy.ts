@@ -1,4 +1,5 @@
 import {
+  ApplicationCommandOption,
   decode,
   json,
   rest,
@@ -44,19 +45,7 @@ export async function updateGlobalCommands() {
             name,
             description: command!.description || description ||
               "No description available.",
-            options: command!.options?.map((option) => {
-              const optionName = translate("english", option.name);
-              const optionDescription = translate(
-                "english",
-                option.description,
-              );
-
-              return {
-                ...option,
-                name: optionName,
-                description: optionDescription || "No description available.",
-              };
-            }),
+            options: createOptions("english", command!.options),
           };
         },
       ),
@@ -93,19 +82,7 @@ export async function updateGuildCommands(guildId: string) {
           return {
             name: translatedName || name,
             description: translatedDescription || command!.description,
-            options: command!.options?.map((option) => {
-              const optionName = translate(guildId, option.name);
-              const optionDescription = translate(
-                guildId,
-                option.description,
-              );
-
-              return {
-                ...option,
-                name: optionName,
-                description: optionDescription || "No description available.",
-              };
-            }),
+            options: createOptions(guildId, command!.options),
           };
         },
       ),
@@ -115,40 +92,54 @@ export async function updateGuildCommands(guildId: string) {
 
 export async function updateDevCommands() {
   const guildId = "800080308921696296";
-  // GUILD RELATED COMMANDS
+  const cmds = Object.entries(commands)
+    // ONLY DEV COMMANDS
+    .filter(([_name, command]) => command?.dev);
+
+  if (!cmds.length) return;
+
+  // DEV RELATED COMMANDS
   await upsertSlashCommands(
-    Object.entries(commands)
-      // ONLY GUILD COMMANDS
-      .filter(([_name, command]) => command?.dev).map(
-        ([name, command]) => {
-          const translatedName = translate(
-            guildId,
-            `${name.toUpperCase()}_NAME`,
-          );
-          const translatedDescription = translate(
-            guildId,
-            `${name.toUpperCase()}_DESCRIPTION`,
-          );
+    cmds.map(
+      ([name, command]) => {
+        const translatedName = translate(
+          guildId,
+          `${name.toUpperCase()}_NAME`,
+        );
+        const translatedDescription = translate(
+          guildId,
+          `${name.toUpperCase()}_DESCRIPTION`,
+        );
 
-          return {
-            name: translatedName || name,
-            description: translatedDescription || command!.description,
-            options: command!.options?.map((option) => {
-              const optionName = translate(guildId, option.name);
-              const optionDescription = translate(
-                guildId,
-                option.description,
-              );
-
-              return {
-                ...option,
-                name: optionName,
-                description: optionDescription || "No description available.",
-              };
-            }),
-          };
-        },
-      ),
+        return {
+          name: translatedName || name,
+          description: translatedDescription || command!.description,
+          options: createOptions(guildId, command!.options),
+        };
+      },
+    ),
     snowflakeToBigint(guildId),
   );
+}
+
+function createOptions(
+  guildId: string,
+  options?: ApplicationCommandOption[],
+): ApplicationCommandOption[] | undefined {
+  return options?.map((option) => {
+    const optionName = translate(guildId, option.name);
+    const optionDescription = translate(
+      guildId,
+      option.description,
+    );
+
+    return {
+      ...option,
+      name: optionName,
+      description: optionDescription || "No description available.",
+      options: option.options
+        ? createOptions(guildId, option.options)
+        : undefined,
+    };
+  });
 }

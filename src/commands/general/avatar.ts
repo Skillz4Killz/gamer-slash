@@ -1,4 +1,8 @@
-import { avatarURL, DiscordApplicationCommandOptionTypes, snowflakeToBigint } from "../../../deps.ts";
+import {
+  ApplicationCommandOptionTypes,
+  avatarURL,
+  snowflakeToBigint,
+} from "../../../deps.ts";
 import translate from "../../languages/translate.ts";
 import { Embed } from "../../utils/Embed.ts";
 import { Command } from "../mod.ts";
@@ -10,7 +14,7 @@ const command: Command = {
       required: false,
       name: "AVATAR_USER_NAME",
       description: "AVATAR_USER_DESCRIPTION",
-      type: DiscordApplicationCommandOptionTypes.User,
+      type: ApplicationCommandOptionTypes.User,
     },
   ],
   execute: function (payload) {
