@@ -10,6 +10,7 @@ import avatar from "./general/avatar.ts";
 import invite from "./general/invite.ts";
 import language from "./general/language.ts";
 import ping from "./general/ping.ts";
+import info from "./general/info.ts";
 import { PermissionLevels } from "../utils/permissionLevels.ts";
 
 export const commands: Record<string, Command | undefined> = {
@@ -19,6 +20,7 @@ export const commands: Record<string, Command | undefined> = {
   invite,
   language,
   ping,
+  info,
 };
 
 export interface Command {
