@@ -8,6 +8,13 @@ const german: Language = {
     "Du hast nicht die nötigen Berechtigungen für diesen Befehl.",
   BROKE_DISCORD:
     "Du hast Discord kaputt gemacht! Glückwunsch! <:blamewolf:814955268123000832>",
+  ANSWER: "Antwort",
+  NICKNAME: "Nickname",
+  CREATED_ON: "Erstellt am",
+  JOINED_ON: "Beigetreten am",
+  PERMISSIONS: "Rechte",
+  USER_ID: "Benutzer ID",
+  ROLES: "Rollen",
 
   // COMMANDS STRINGS
 
@@ -53,6 +60,13 @@ const german: Language = {
   PING_NAME: "ping",
   PING_DESCRIPTION: "🏓 Prüfe die Reaktionszeit des Bots und ob er online ist.",
   PING_RESPONSE: "🏓 Pong! Ich bin online! :clock10:",
+
+  // Info Command
+  INFO_USER_NAME: "Benutzer",
+  INFO_USER_DESCRIPTION: "Erhalte die Info eines Benutzers",
+  INFO_SERVER_NAME: "Server",
+  INFO_SERVER_DESCRIPTION: "Erhalte die Info dieses Servers",
+  INFO_ADMIN: "Administrator",
 
   // Random Command
   RANDOM_NAME: "random",
