@@ -13,6 +13,7 @@ const english: Language = {
   PERMISSIONS: "Permissions",
   USER_ID: "User ID",
   ROLES: "Roles",
+  USER_NOT_ADMIN: "You do not have the necessary permissions. You must be an administrator.",
 
   // COMMANDS STRINGS
 

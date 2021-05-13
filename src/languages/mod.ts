@@ -1,7 +1,9 @@
 import english from "./en_US.ts";
+import german from "./de_DE.ts";
 
 const languages: Record<string, Language> = {
   english,
+  german,
 };
 
 export default languages;
