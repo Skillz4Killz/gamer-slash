@@ -80,7 +80,7 @@ export async function updateGuildCommands(guildId: string) {
           );
 
           return {
-            name: translatedName || name,
+            name: (translatedName || name).toLowerCase(),
             description: translatedDescription || command!.description,
             options: createOptions(guildId, command!.options),
           };
@@ -112,7 +112,7 @@ export async function updateDevCommands() {
         );
 
         return {
-          name: translatedName || name,
+          name: (translatedName || name).toLowerCase(),
           description: translatedDescription || command!.description,
           options: createOptions(guildId, command!.options),
         };

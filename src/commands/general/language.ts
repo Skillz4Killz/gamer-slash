@@ -6,7 +6,8 @@ import { updateGuildCommands } from "../../utils/redeploy.ts";
 
 const command: Command = {
   dev: true,
-  global: true,
+  advanced: false,
+  guild: true,
   options: [
     {
       name: "english",
