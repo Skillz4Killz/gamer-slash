@@ -54,6 +54,7 @@ const english: Language = {
 
   // Info Command
   INFO_NAME: "info",
+  INFO_DESCRIPTION: "Get the info of a member or this server.",
   INFO_USER_NAME: "user",
   INFO_USER_DESCRIPTION: "Get the info of an user",
   INFO_SERVER_NAME: "server",
