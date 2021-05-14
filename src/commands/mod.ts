@@ -14,13 +14,19 @@ import info from "./general/info.ts";
 import { PermissionLevels } from "../utils/permissionLevels.ts";
 
 export const commands: Record<string, Command | undefined> = {
+  // English names
   gifs,
   random,
   avatar,
+  info,
   invite,
   language,
   ping,
-  info,
+
+  // German aliases
+
+  sprache: language,
+  benutzer: info
 };
 
 export interface Command {
