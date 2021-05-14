@@ -34,7 +34,7 @@ const command: Command = {
     }
 
     // Make sure the user has valid permissions to use this command
-    if (validatePermissions(payload.member!.permissions, ["ADMINISTRATOR"]))
+    if (!validatePermissions(payload.member!.permissions, ["ADMINISTRATOR"]))
       return {
         content: translate(payload.guildId!, "USER_NOT_ADMIN"),
       };
