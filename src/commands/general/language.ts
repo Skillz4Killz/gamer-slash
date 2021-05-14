@@ -2,12 +2,11 @@ import { ApplicationCommandOptionTypes, validatePermissions } from "../../../dep
 import { Command } from "../mod.ts";
 import languages from "../../languages/mod.ts";
 import { serverLanguages, translate } from "../../languages/translate.ts";
-import { updateGuildCommands } from "../../utils/redeploy.ts";
+import { updateDevCommands, updateGuildCommands } from "../../utils/redeploy.ts";
 
 const command: Command = {
   dev: true,
   advanced: false,
-  guild: true,
   options: [
     {
       name: "english",
@@ -39,17 +38,19 @@ const command: Command = {
         content: translate(payload.guildId!, "USER_NOT_ADMIN"),
       };
 
+    // EDIT CACHE BEFORE UPDATING COMMANDS
+    serverLanguages.set(payload.guildId!, value);
+
     // await Promise.all([
     // Set the language to the commands on this server.
-    updateGuildCommands(payload.guildId!),
-      // Update it in the database
-      fetch(`${Deno.env.get("DB_URL")}/v1/guilds/${payload.guildId}`, {
-        method: "PUT",
-        body: JSON.stringify({ language: value, _id: payload.guildId }),
-      }),
-      // ]).catch(console.error);
-
-      serverLanguages.set(payload.guildId!, value);
+    updateGuildCommands(payload.guildId!);
+    updateDevCommands();
+    // Update it in the database
+    fetch(`${Deno.env.get("DB_URL")}/v1/guilds/${payload.guildId}`, {
+      method: "PUT",
+      body: JSON.stringify({ language: value, _id: payload.guildId }),
+    });
+    // ]).catch(console.error);
 
     return {
       content: translate(payload.guildId!, "LANGUAGE_UPDATED", value),
