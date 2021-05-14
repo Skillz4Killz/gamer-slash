@@ -12,8 +12,8 @@ import {
   validateRequest,
   verifySignature,
 } from "./deps.ts";
-import { commands } from "./src/commands/mod.ts";
-import translate, { loadLanguage, serverLanguages } from "./src/languages/translate.ts";
+import { aliases, commands } from "./src/commands/mod.ts";
+import translate from "./src/languages/translate.ts";
 import { isInteractionResponse } from "./src/utils/isInteractionResponse.ts";
 import { logWebhook } from "./src/utils/logWebhook.ts";
 import hasPermissionLevel from "./src/utils/permissionLevels.ts";
@@ -80,8 +80,9 @@ async function main(request: Request) {
       });
     }
 
-    const command = commands[payload.data.name];
+    const command = commands[payload.data.name] || aliases[payload.data.name];
     if (!command) {
+      // Try to see if the command is an alias that was translated
       return json({
         type: InteractionResponseTypes.ChannelMessageWithSource,
         data: {

@@ -22,11 +22,13 @@ export const commands: Record<string, Command | undefined> = {
   invite,
   language,
   ping,
+};
 
+export const aliases: Record<string, Command | undefined> = {
   // German aliases
 
   sprache: language,
-  benutzer: info
+  benutzer: info,
 };
 
 export interface Command {
@@ -50,7 +52,7 @@ export interface Command {
   options?: ApplicationCommandOption[];
   /** The function that will be called when the command is executed. */
   execute: (
-    payload: Interaction,
+    payload: Interaction
   ) =>
     | InteractionResponse
     | InteractionApplicationCommandCallbackData
