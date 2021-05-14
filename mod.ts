@@ -10,7 +10,7 @@ import {
   verifySignature,
 } from "./deps.ts";
 import { commands } from "./src/commands/mod.ts";
-import translate from "./src/languages/translate.ts";
+import translate, { loadLanguage, serverLanguages } from "./src/languages/translate.ts";
 import { isInteractionResponse } from "./src/utils/isInteractionResponse.ts";
 import { logWebhook } from "./src/utils/logWebhook.ts";
 import hasPermissionLevel from "./src/utils/permissionLevels.ts";
@@ -50,9 +50,12 @@ async function main(request: Request) {
     body: await request.text(),
   });
   if (!isValid) {
-    return json({ error: "Invalid request; could not verify the request" }, {
-      status: 401,
-    });
+    return json(
+      { error: "Invalid request; could not verify the request" },
+      {
+        status: 401,
+      }
+    );
   }
 
   const payload = camelize<Interaction>(JSON.parse(body));
@@ -65,8 +68,7 @@ async function main(request: Request) {
       return json({
         type: InteractionResponseTypes.ChannelMessageWithSource,
         data: {
-          content:
-            "Something went wrong. I was not able to find the command name in the payload sent by Discord.",
+          content: "Something went wrong. I was not able to find the command name in the payload sent by Discord.",
         },
       });
     }
@@ -81,15 +83,16 @@ async function main(request: Request) {
       });
     }
 
+    if (payload.guildId && !serverLanguages.has(payload.guildId)) {
+      await loadLanguage(payload.guildId);
+    }
+
     // Make sure the user has the permission to run this command.
     if (!(await hasPermissionLevel(command, payload))) {
       return json({
         type: InteractionResponseTypes.ChannelMessageWithSource,
         data: {
-          content: translate(
-            payload.guildId!,
-            "MISSING_PERM_LEVEL",
-          ),
+          content: translate(payload.guildId!, "MISSING_PERM_LEVEL"),
         },
       });
     }

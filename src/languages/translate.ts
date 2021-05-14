@@ -6,9 +6,6 @@ export const serverLanguages = new Map<string, string>();
 export function translate(guildId: string, key: string, ...args: unknown[]): string {
   const language = serverLanguages.get(guildId) || "english";
   
-  // DONT AWAIT THIS INTENTIONALLY!
-  loadLanguage(guildId);
-  
   let value = languages[language][key];
 
   if (Array.isArray(value)) return value.join("\n");
@@ -28,7 +25,7 @@ export function translate(guildId: string, key: string, ...args: unknown[]): str
   return value as string;
 }
 
-async function loadLanguage(guildId: string) {
+export async function loadLanguage(guildId: string) {
   const settings = await fetch(`${Deno.env.get("DB_URL")}/v1/guilds/${guildId}`, {
     method: "GET",
   })
