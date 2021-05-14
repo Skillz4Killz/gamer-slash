@@ -16,7 +16,7 @@ const command: Command = {
   ],
   execute: function (payload) {
     const arg = payload.data?.options?.[0];
-    if (!arg) {
+    if (arg?.type !== ApplicationCommandOptionTypes.String) {
       return {
         content: translate(payload.guildId!, "BROKE_DISCORD"),
         embeds: [{ image: { url: "https://i.imgur.com/pEJNhgG.gif" } }],
@@ -26,17 +26,12 @@ const command: Command = {
     const gifs = funGifs.get(arg.value as string);
     if (!gifs) {
       return {
-        content: translate(
-          payload.guildId!,
-          "GIFS_INVALID_TYPE",
-          [...funGifs.keys()].join(", "),
-        ),
+        content: translate(payload.guildId!, "GIFS_INVALID_TYPE", [...funGifs.keys()].join(", ")),
       };
     }
 
     return {
-      content: chooseRandom(gifs) ||
-        "A random gif could not be selected. Blame wolf!",
+      content: chooseRandom(gifs) || "A random gif could not be selected. Blame wolf!",
     };
   },
 };

@@ -1,5 +1,4 @@
 import {
-  ApplicationCommandInteractionDataOption,
   ApplicationCommandInteractionDataOptionWithValue,
   avatarURL,
   calculatePermissions,
@@ -14,7 +13,6 @@ import { Command } from "../mod.ts";
 
 const command: Command = {
   dev: true,
-  global: false,
   options: [
     {
       required: false,

@@ -50,7 +50,7 @@ const command: Command = {
   ],
   execute: function (payload) {
     const subcommand = payload.data?.options?.[0];
-    if (!subcommand) {
+    if (!subcommand || subcommand.type !== ApplicationCommandOptionTypes.SubCommand) {
       return {
         content: translate(payload.guildId!, "BROKE_DISCORD"),
         embeds: [{ image: { url: "https://i.imgur.com/pEJNhgG.gif" } }],
@@ -59,23 +59,30 @@ const command: Command = {
 
     switch (subcommand.name) {
       case "number": {
-        const minimum =
-          subcommand.options?.find((o) => o.name === "minimum")?.value || 0;
-        const maximum =
-          subcommand.options?.find((o) => o.name === "maximum")?.value || 100;
+        const minimum = subcommand.options?.find((o) => o.name === "minimum")?.value || 0;
+        const maximum = subcommand.options?.find((o) => o.name === "maximum")?.value || 100;
+
+        if (typeof maximum !== "number" || typeof minimum !== "number")
+          return {
+            content: translate(payload.guildId!, "BROKE_DISCORD"),
+            embeds: [{ image: { url: "https://i.imgur.com/pEJNhgG.gif" } }],
+          };
 
         return {
-          content: Math.floor(Math.random() * (maximum - minimum) + minimum)
-            .toLocaleString("en-US"),
+          content: Math.floor(Math.random() * (maximum - minimum) + minimum).toLocaleString("en-US"),
         };
       }
       case "8ball": {
         const question = subcommand.options?.[0].value;
+        if (typeof question !== "string")
+          return {
+            content: translate(payload.guildId!, "BROKE_DISCORD"),
+            embeds: [{ image: { url: "https://i.imgur.com/pEJNhgG.gif" } }],
+          };
+
         const embed = new Embed().addField(
           translate(payload.guildId!, "ANSWER"),
-          chooseRandom(
-            translate(payload.guildId!, "RANDOM_8BALL_QUOTES").split("\n"),
-          ),
+          chooseRandom(translate(payload.guildId!, "RANDOM_8BALL_QUOTES").split("\n"))
         );
 
         if (question.length < 250) embed.setTitle(question);
@@ -88,9 +95,7 @@ const command: Command = {
       default:
         // case "advice":
         return {
-          content: chooseRandom(
-            translate(payload.guildId!, "RANDOM_ADVICE_QUOTES").split("\n"),
-          ),
+          content: chooseRandom(translate(payload.guildId!, "RANDOM_ADVICE_QUOTES").split("\n")),
         };
     }
   },
