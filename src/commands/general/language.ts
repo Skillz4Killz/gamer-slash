@@ -43,7 +43,7 @@ const command: Command = {
 
     // Set the language to the commands on this server.
     updateGuildCommands(payload.guildId!);
-    updateDevCommands();
+
     // Update it in the database
     fetch(`${Deno.env.get("DB_URL")}/v1/guilds/${payload.guildId}`, {
       method: "PUT",
