@@ -15,7 +15,7 @@ const command: Command = {
   ],
   execute: function (payload) {
     const arg = payload.data?.options?.[0];
-    if (arg?.type !== ApplicationCommandOptionTypes.User)
+    if (arg && arg?.type !== ApplicationCommandOptionTypes.User)
       return {
         content: translate(payload.guildId!, "BROKE_DISCORD"),
         embeds: [{ image: { url: "https://i.imgur.com/pEJNhgG.gif" } }],
