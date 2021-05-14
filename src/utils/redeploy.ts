@@ -12,9 +12,7 @@ import translate from "../languages/translate.ts";
 
 export default async function redeploy(request: Request) {
   const authorization = request.headers.get("authorization");
-  if (
-    !authorization || (authorization !== Deno.env.get("REDEPLOY_AUTHORIZATION"))
-  ) {
+  if (!authorization || authorization !== Deno.env.get("REDEPLOY_AUTHORIZATION")) {
     return json({ error: "Invalid authorization header." }, { status: 401 });
   }
 
@@ -28,21 +26,16 @@ export async function updateGlobalCommands() {
   await upsertSlashCommands(
     Object.entries(commands)
       // ONLY GLOBAL COMMANDS
-      .filter(([_name, command]) => command?.global && !command.dev).map(
-        ([name, command]) => {
-          const description = translate(
-            "english",
-            `${name.toUpperCase()}_DESCRIPTION`,
-          );
+      .filter(([_name, command]) => command?.global && !command.dev)
+      .map(([name, command]) => {
+        const description = translate("english", `${name.toUpperCase()}_DESCRIPTION`);
 
-          return {
-            name,
-            description: command!.description || description ||
-              "No description available.",
-            options: createOptions("english", command!.options),
-          };
-        },
-      ),
+        return {
+          name,
+          description: command!.description || description || "No description available.",
+          options: createOptions("english", command!.options),
+        };
+      })
   );
 }
 
@@ -52,35 +45,33 @@ export async function updateGuildCommands(guildId: string) {
     Object.entries(commands)
       // ONLY GUILD COMMANDS
       .filter(([_name, command]) => command!.guild !== false && !command?.dev)
-      .map(
-        ([name, command]) => {
-          // USER OPTED TO USE BASIC VERSION ONLY
-          if (command!.advanced === false) {
-            return {
-              name,
-              description: command!.description || "No description available.",
-              options: command!.options,
-            };
-          }
-
-          // ADVANCED VERSION WILL ALLOW TRANSLATION
-          const translatedName = translate(
-            guildId,
-            `${name.toUpperCase()}_NAME`,
-          );
-          const translatedDescription = translate(
-            guildId,
-            `${name.toUpperCase()}_DESCRIPTION`,
-          );
-
+      .map(([name, command]) => {
+        // USER OPTED TO USE BASIC VERSION ONLY
+        if (command!.advanced === false) {
           return {
-            name: (translatedName || name).toLowerCase(),
-            description: translatedDescription || command!.description,
-            options: createOptions(guildId, command!.options),
+            name,
+            description: command!.description || "No description available.",
+            options: command!.options,
           };
-        },
-      ),
-    snowflakeToBigint(guildId),
+        }
+
+        // ADVANCED VERSION WILL ALLOW TRANSLATION
+        const translatedName = translate(guildId, `${name.toUpperCase()}_NAME`);
+        const translatedDescription = translate(guildId, `${name.toUpperCase()}_DESCRIPTION`);
+
+        console.log("dev", name, {
+          name: (translatedName || name).toLowerCase(),
+          description: translatedDescription || command!.description,
+          options: createOptions(guildId, command!.options),
+        });
+
+        return {
+          name: (translatedName || name).toLowerCase(),
+          description: translatedDescription || command!.description,
+          options: createOptions(guildId, command!.options),
+        };
+      }),
+    snowflakeToBigint(guildId)
   );
 
   if (guildId === "800080308921696296") await updateDevCommands();
@@ -96,46 +87,30 @@ export async function updateDevCommands() {
 
   // DEV RELATED COMMANDS
   await upsertSlashCommands(
-    cmds.map(
-      ([name, command]) => {
-        const translatedName = translate(
-          guildId,
-          `${name.toUpperCase()}_NAME`,
-        );
-        const translatedDescription = translate(
-          guildId,
-          `${name.toUpperCase()}_DESCRIPTION`,
-        );
+    cmds.map(([name, command]) => {
+      const translatedName = translate(guildId, `${name.toUpperCase()}_NAME`);
+      const translatedDescription = translate(guildId, `${name.toUpperCase()}_DESCRIPTION`);
 
-        return {
-          name: (translatedName || name).toLowerCase(),
-          description: translatedDescription || command!.description,
-          options: createOptions(guildId, command!.options),
-        };
-      },
-    ),
-    snowflakeToBigint(guildId),
+      return {
+        name: (translatedName || name).toLowerCase(),
+        description: translatedDescription || command!.description,
+        options: createOptions(guildId, command!.options),
+      };
+    }),
+    snowflakeToBigint(guildId)
   );
 }
 
-function createOptions(
-  guildId: string,
-  options?: ApplicationCommandOption[],
-): ApplicationCommandOption[] | undefined {
+function createOptions(guildId: string, options?: ApplicationCommandOption[]): ApplicationCommandOption[] | undefined {
   return options?.map((option) => {
     const optionName = translate(guildId, option.name);
-    const optionDescription = translate(
-      guildId,
-      option.description,
-    );
+    const optionDescription = translate(guildId, option.description);
 
     return {
       ...option,
       name: optionName,
       description: optionDescription || "No description available.",
-      options: option.options
-        ? createOptions(guildId, option.options)
-        : undefined,
+      options: option.options ? createOptions(guildId, option.options) : undefined,
     };
   });
 }
