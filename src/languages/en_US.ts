@@ -53,6 +53,7 @@ const english: Language = {
   PING_RESPONSE: "🏓 Pong! I am online and responsive! :clock10:",
 
   // Info Command
+  INFO_NAME: "info",
   INFO_USER_NAME: "user",
   INFO_USER_DESCRIPTION: "Get the info of an user",
   INFO_SERVER_NAME: "server",

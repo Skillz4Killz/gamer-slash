@@ -1,8 +1,4 @@
-import {
-  ApplicationCommandOptionTypes,
-  avatarURL,
-  snowflakeToBigint,
-} from "../../../deps.ts";
+import { ApplicationCommandOptionTypes, avatarURL, snowflakeToBigint } from "../../../deps.ts";
 import translate from "../../languages/translate.ts";
 import { Embed } from "../../utils/Embed.ts";
 import { Command } from "../mod.ts";
@@ -19,22 +15,25 @@ const command: Command = {
   ],
   execute: function (payload) {
     const arg = payload.data?.options?.[0];
+    if (arg && arg?.type !== ApplicationCommandOptionTypes.User)
+      return {
+        content: translate(payload.guildId!, "BROKE_DISCORD"),
+        embeds: [{ image: { url: "https://i.imgur.com/pEJNhgG.gif" } }],
+      };
+
     const userId = (arg?.value || "") as string;
-    const targetUser = payload.data?.resolved?.users?.[userId] ||
-      payload.member?.user || payload.user!;
+    const targetUser = payload.data?.resolved?.users?.[userId] || payload.member?.user || payload.user!;
 
-    const url = avatarURL(
-      snowflakeToBigint(targetUser.id),
-      snowflakeToBigint(targetUser.discriminator),
-      { avatar: targetUser.avatar!, animated: true, size: 2048 },
-    );
+    const url = avatarURL(snowflakeToBigint(targetUser.id), snowflakeToBigint(targetUser.discriminator), {
+      avatar: targetUser.avatar!,
+      animated: true,
+      size: 2048,
+    });
 
-    const embed = new Embed().setAuthor(
-      `${targetUser.username}#${targetUser?.discriminator}`,
-      targetUser,
-    ).setDescription(
-      `[${translate(payload.guildId!, "AVATAR_DOWNLOAD_LINK")}](${url})`,
-    ).setImage(targetUser);
+    const embed = new Embed()
+      .setAuthor(`${targetUser.username}#${targetUser?.discriminator}`, targetUser)
+      .setDescription(`[${translate(payload.guildId!, "AVATAR_DOWNLOAD_LINK")}](${url})`)
+      .setImage(targetUser);
 
     if (arg?.value) {
       if (!targetUser) {
