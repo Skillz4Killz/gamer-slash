@@ -84,6 +84,13 @@ export async function updateDevCommands() {
       const translatedName = translate(guildId, `${name.toUpperCase()}_NAME`);
       const translatedDescription = translate(guildId, `${name.toUpperCase()}_DESCRIPTION`);
 
+      console.log("devd", name, {
+        name: (translatedName || name).toLowerCase(),
+        description: translatedDescription || command!.description,
+        options: createOptions(guildId, command!.options),
+      });
+      console.log('devda', createOptions(guildId, command!.options));
+
       return {
         name: (translatedName || name).toLowerCase(),
         description: translatedDescription || command!.description,
