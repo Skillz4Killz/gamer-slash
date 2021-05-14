@@ -56,7 +56,6 @@ export async function updateGuildCommands(guildId: string) {
         //   description: translatedDescription || command!.description,
         //   options: createOptions(guildId, command!.options),
         // });
-        // console.log(createOptions(guildId, command!.options));
 
         return {
           name: (translatedName || name).toLowerCase(),
