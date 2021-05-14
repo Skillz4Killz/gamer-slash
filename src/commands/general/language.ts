@@ -5,6 +5,7 @@ import { serverLanguages, translate } from "../../languages/translate.ts";
 import { updateGuildCommands } from "../../utils/redeploy.ts";
 
 const command: Command = {
+  dev: true,
   global: true,
   options: [
     {
@@ -45,7 +46,7 @@ const command: Command = {
       // Update it in the database
       fetch(`${Deno.env.get("DB_URL")}/v1/guilds/${payload.guildId}`, {
         method: "PUT",
-        body: JSON.stringify({ language: value }),
+        body: JSON.stringify({ language: value, _id: payload.guildId }),
       }),
     ]).catch(console.error);
 
