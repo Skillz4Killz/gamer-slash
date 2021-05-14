@@ -1,9 +1,6 @@
 import {
   ApplicationCommandOption,
-  decode,
   json,
-  rest,
-  setApplicationId,
   snowflakeToBigint,
   upsertSlashCommands,
 } from "../../deps.ts";
