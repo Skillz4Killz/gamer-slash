@@ -1,11 +1,14 @@
 import {
   camelize,
+  decode,
   DiscordInteractionResponseTypes,
   Interaction,
   InteractionResponseTypes,
   InteractionTypes,
   json,
+  rest,
   serve,
+  setApplicationId,
   validateRequest,
   verifySignature,
 } from "./deps.ts";
@@ -15,6 +18,10 @@ import { isInteractionResponse } from "./src/utils/isInteractionResponse.ts";
 import { logWebhook } from "./src/utils/logWebhook.ts";
 import hasPermissionLevel from "./src/utils/permissionLevels.ts";
 import redeploy from "./src/utils/redeploy.ts";
+
+const token = Deno.env.get("DISCORD_TOKEN");
+rest.token = `Bot ${token}`;
+setApplicationId(new TextDecoder().decode(decode(token?.split(".")[0] || "")) || "");
 
 serve({
   "/": main,
