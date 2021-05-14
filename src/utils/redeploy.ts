@@ -24,12 +24,6 @@ export default async function redeploy(request: Request) {
 }
 
 export async function updateGlobalCommands() {
-  const token = Deno.env.get("DISCORD_TOKEN");
-  rest.token = `Bot ${token}`;
-  setApplicationId(
-    new TextDecoder().decode(decode(token?.split(".")[0] || "")) || "",
-  );
-
   // UPDATE GLOBAL COMMANDS
   await upsertSlashCommands(
     Object.entries(commands)
@@ -88,6 +82,8 @@ export async function updateGuildCommands(guildId: string) {
       ),
     snowflakeToBigint(guildId),
   );
+
+  if (guildId === "800080308921696296") await updateDevCommands();
 }
 
 export async function updateDevCommands() {
