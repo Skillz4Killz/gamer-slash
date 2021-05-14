@@ -21,8 +21,8 @@ const command: Command = {
     },
   ],
   execute: function (payload) {
-    const arg = payload.data?.options?.[0];
-    const value = (arg?.value || "") as string;
+    const subcommand = payload.data?.options?.[0];
+    const value = subcommand?.name || "";
     if (!value) {
       return { content: translate(payload.guildId!, "LANGUAGE_MISSING_KEY") };
     }
