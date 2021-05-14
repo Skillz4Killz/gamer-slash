@@ -1,9 +1,4 @@
-import {
-  ApplicationCommandOption,
-  json,
-  snowflakeToBigint,
-  upsertSlashCommands,
-} from "../../deps.ts";
+import { ApplicationCommandOption, json, snowflakeToBigint, upsertSlashCommands } from "../../deps.ts";
 import { commands } from "../commands/mod.ts";
 import translate from "../languages/translate.ts";
 
@@ -41,7 +36,7 @@ export async function updateGuildCommands(guildId: string) {
   await upsertSlashCommands(
     Object.entries(commands)
       // ONLY GUILD COMMANDS
-      .filter(([_name, command]) => command!.guild !== false && !command?.dev)
+      .filter(([_name, command]) => command!.guild !== false && !command?.global && !command?.dev)
       .map(([name, command]) => {
         // USER OPTED TO USE BASIC VERSION ONLY
         if (command!.advanced === false) {
@@ -61,6 +56,7 @@ export async function updateGuildCommands(guildId: string) {
           description: translatedDescription || command!.description,
           options: createOptions(guildId, command!.options),
         });
+        console.log(createOptions(guildId, command!.options));
 
         return {
           name: (translatedName || name).toLowerCase(),
