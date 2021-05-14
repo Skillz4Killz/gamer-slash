@@ -41,7 +41,6 @@ const command: Command = {
     // EDIT CACHE BEFORE UPDATING COMMANDS
     serverLanguages.set(payload.guildId!, value);
 
-    // await Promise.all([
     // Set the language to the commands on this server.
     updateGuildCommands(payload.guildId!);
     updateDevCommands();
@@ -50,7 +49,6 @@ const command: Command = {
       method: "PUT",
       body: JSON.stringify({ language: value, _id: payload.guildId }),
     });
-    // ]).catch(console.error);
 
     return {
       content: translate(payload.guildId!, "LANGUAGE_UPDATED", value),
