@@ -83,9 +83,9 @@ async function main(request: Request) {
       });
     }
 
-    if (payload.guildId && !serverLanguages.has(payload.guildId)) {
-      await loadLanguage(payload.guildId);
-    }
+    // if (payload.guildId && !serverLanguages.has(payload.guildId)) {
+    //   await loadLanguage(payload.guildId);
+    // }
 
     // Make sure the user has the permission to run this command.
     if (!(await hasPermissionLevel(command, payload))) {
