@@ -77,18 +77,25 @@ export async function updateDevCommands() {
 
   if (!cmds.length) return;
 
+  console.log(
+    "devd",
+    cmds.map(([name, command]) => {
+      const translatedName = translate(guildId, `${name.toUpperCase()}_NAME`);
+      const translatedDescription = translate(guildId, `${name.toUpperCase()}_DESCRIPTION`);
+
+      return {
+        name: (translatedName || name).toLowerCase(),
+        description: translatedDescription || command!.description,
+        options: createOptions(guildId, command!.options),
+      };
+    })
+  );
+
   // DEV RELATED COMMANDS
   await upsertSlashCommands(
     cmds.map(([name, command]) => {
       const translatedName = translate(guildId, `${name.toUpperCase()}_NAME`);
       const translatedDescription = translate(guildId, `${name.toUpperCase()}_DESCRIPTION`);
-
-      console.log("devd", name, {
-        name: (translatedName || name).toLowerCase(),
-        description: translatedDescription || command!.description,
-        options: createOptions(guildId, command!.options),
-      });
-      console.log('devda', createOptions(guildId, command!.options));
 
       return {
         name: (translatedName || name).toLowerCase(),
@@ -107,7 +114,7 @@ function createOptions(guildId: string, options?: ApplicationCommandOption[]): A
 
     return {
       ...option,
-      name: optionName,
+      name: optionName.toLowerCase(),
       description: optionDescription || "No description available.",
       options: option.options ? createOptions(guildId, option.options) : undefined,
     };
