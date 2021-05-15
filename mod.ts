@@ -13,8 +13,7 @@ import {
   verifySignature,
 } from "./deps.ts";
 import { aliases, commands } from "./src/commands/mod.ts";
-import translate, { serverLanguages } from "./src/languages/translate.ts";
-import database from "./src/utils/database.ts";
+import translate, { loadAllLanguages } from "./src/languages/translate.ts";
 import { isInteractionResponse } from "./src/utils/isInteractionResponse.ts";
 import { logWebhook } from "./src/utils/logWebhook.ts";
 import hasPermissionLevel from "./src/utils/permissionLevels.ts";
@@ -26,18 +25,10 @@ const token = Deno.env.get("DISCORD_TOKEN");
 rest.token = `Bot ${token}`;
 setApplicationId(new TextDecoder().decode(decode(token?.split(".")[0] || "")) || "");
 
-// Load all translations for the guilds
-const guildSettings = await database.findAll("guilds");
-
-if (guildSettings) {
-  for (const settings of guildSettings) {
-    if (settings.language !== "english") serverLanguages.set(settings._id, settings.language);
-  }
-}
-
 serve({
   "/": main,
   "/redeploy": redeploy,
+  "/translations": loadAllLanguages
 });
 
 async function main(request: Request) {
@@ -102,10 +93,6 @@ async function main(request: Request) {
         },
       });
     }
-
-    // if (payload.guildId && !serverLanguages.has(payload.guildId)) {
-    //   await loadLanguage(payload.guildId);
-    // }
 
     // Make sure the user has the permission to run this command.
     if (!(await hasPermissionLevel(command, payload))) {

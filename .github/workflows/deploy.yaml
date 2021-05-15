@@ -10,8 +10,9 @@ jobs:
       - name: Sleep for 30 seconds to let deno deploy finish
         uses: jakejarvis/wait-action@master
         with:
-          time: '30s'
+          time: "30s"
       - uses: actions/checkout@v2
+      - name: Trigger an request to set languages
+        run: "curl --request POST --url ${{ secrets.DENO_DEPLOY_URL }}translations -H 'Authorization: ${{ secrets.REDEPLOY_AUTHORIZATION }}'"
       - name: Trigger an update request
         run: "curl --request POST --url ${{ secrets.DENO_DEPLOY_URL }}redeploy -H 'Authorization: ${{ secrets.REDEPLOY_AUTHORIZATION }}'"
-        
