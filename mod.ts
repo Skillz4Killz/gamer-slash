@@ -13,7 +13,7 @@ import {
   verifySignature,
 } from "./deps.ts";
 import { aliases, commands } from "./src/commands/mod.ts";
-import translate, { loadAllLanguages } from "./src/languages/translate.ts";
+import translate, { loadAllLanguages, loadLanguage, serverLanguages } from "./src/languages/translate.ts";
 import { isInteractionResponse } from "./src/utils/isInteractionResponse.ts";
 import { logWebhook } from "./src/utils/logWebhook.ts";
 import hasPermissionLevel from "./src/utils/permissionLevels.ts";
@@ -28,7 +28,7 @@ setApplicationId(new TextDecoder().decode(decode(token?.split(".")[0] || "")) ||
 serve({
   "/": main,
   "/redeploy": redeploy,
-  "/translations": loadAllLanguages
+  "/translations": loadAllLanguages,
 });
 
 async function main(request: Request) {
@@ -102,6 +102,13 @@ async function main(request: Request) {
           content: translate(payload.guildId!, "MISSING_PERM_LEVEL"),
         },
       });
+    }
+
+    if (payload.guildId && !serverLanguages.has(payload.guildId!)) {
+      // Acknowledge the command
+      json({ type: DiscordInteractionResponseTypes.DeferredChannelMessageWithSource });
+
+      await loadLanguage(payload.guildId);
     }
 
     const result = await command.execute(payload);
