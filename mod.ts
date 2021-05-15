@@ -27,7 +27,7 @@ rest.token = `Bot ${token}`;
 setApplicationId(new TextDecoder().decode(decode(token?.split(".")[0] || "")) || "");
 
 // Load all translations for the guilds
-const guildSettings = await database.getAll("guilds");
+const guildSettings = await database.findAll("guilds");
 
 if (guildSettings) {
   for (const settings of guildSettings) {
