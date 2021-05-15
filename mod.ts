@@ -13,15 +13,28 @@ import {
   verifySignature,
 } from "./deps.ts";
 import { aliases, commands } from "./src/commands/mod.ts";
-import translate from "./src/languages/translate.ts";
+import translate, { serverLanguages } from "./src/languages/translate.ts";
 import { isInteractionResponse } from "./src/utils/isInteractionResponse.ts";
 import { logWebhook } from "./src/utils/logWebhook.ts";
 import hasPermissionLevel from "./src/utils/permissionLevels.ts";
 import redeploy from "./src/utils/redeploy.ts";
 
+// Loads the rest information for all future requests
+// TODO: move to rest serverless instead
 const token = Deno.env.get("DISCORD_TOKEN");
 rest.token = `Bot ${token}`;
 setApplicationId(new TextDecoder().decode(decode(token?.split(".")[0] || "")) || "");
+
+// Load all translations for the guilds
+const guildSettings = await fetch(`${Deno.env.get("DB_URL")}/v1/guilds`)
+  .then((res) => res.json())
+  .catch(console.error);
+
+if (guildSettings) {
+  for (const settings of guildSettings) {
+    if (settings.language !== "english") serverLanguages.set(settings._id, settings.language);
+  }
+}
 
 serve({
   "/": main,
