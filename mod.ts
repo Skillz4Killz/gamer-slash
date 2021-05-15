@@ -28,7 +28,6 @@ setApplicationId(new TextDecoder().decode(decode(token?.split(".")[0] || "")) ||
 serve({
   "/": main,
   "/redeploy": redeploy,
-  "/translations": loadAllLanguages,
 });
 
 async function main(request: Request) {

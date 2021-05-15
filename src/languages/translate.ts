@@ -33,17 +33,4 @@ export async function loadLanguage(guildId: string) {
   if (settings?.language && languages[settings.language]) serverLanguages.set(guildId, settings.language);
 }
 
-export async function loadAllLanguages() {
-  // Load all translations for the guilds
-  const guildSettings = await database.findAll("guilds");
-
-  if (guildSettings) {
-    for (const settings of guildSettings) {
-      if (settings.language !== "english") serverLanguages.set(settings._id, settings.language);
-    }
-  }
-
-  return json({ success: true });
-}
-
 export default translate;
