@@ -1,3 +1,4 @@
+import database from "../utils/database.ts";
 import languages from "./mod.ts";
 
 /** This should hold the language names per guild id. <guildId, language> */
@@ -5,7 +6,7 @@ export const serverLanguages = new Map<string, string>();
 
 export function translate(guildId: string, key: string, ...args: unknown[]): string {
   const language = serverLanguages.get(guildId) || "english";
-  
+
   let value = languages[language][key];
 
   if (Array.isArray(value)) return value.join("\n");
@@ -26,11 +27,7 @@ export function translate(guildId: string, key: string, ...args: unknown[]): str
 }
 
 export async function loadLanguage(guildId: string) {
-  const settings = await fetch(`${Deno.env.get("DB_URL")}/v1/guilds/${guildId}`, {
-    method: "GET",
-  })
-    .then((res) => res.json())
-    .catch(console.error);
+  const settings = await database.findOne("guilds", guildId);
 
   if (settings?.language && languages[settings.language]) serverLanguages.set(guildId, settings.language);
 }

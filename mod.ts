@@ -14,6 +14,7 @@ import {
 } from "./deps.ts";
 import { aliases, commands } from "./src/commands/mod.ts";
 import translate, { serverLanguages } from "./src/languages/translate.ts";
+import database from "./src/utils/database.ts";
 import { isInteractionResponse } from "./src/utils/isInteractionResponse.ts";
 import { logWebhook } from "./src/utils/logWebhook.ts";
 import hasPermissionLevel from "./src/utils/permissionLevels.ts";
@@ -26,9 +27,7 @@ rest.token = `Bot ${token}`;
 setApplicationId(new TextDecoder().decode(decode(token?.split(".")[0] || "")) || "");
 
 // Load all translations for the guilds
-const guildSettings = await fetch(`${Deno.env.get("DB_URL")}/v1/guilds`)
-  .then((res) => res.json())
-  .catch(console.error);
+const guildSettings = await database.getAll("guilds");
 
 if (guildSettings) {
   for (const settings of guildSettings) {

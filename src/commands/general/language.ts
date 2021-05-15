@@ -2,7 +2,8 @@ import { ApplicationCommandOptionTypes, validatePermissions } from "../../../dep
 import { Command } from "../mod.ts";
 import languages from "../../languages/mod.ts";
 import { serverLanguages, translate } from "../../languages/translate.ts";
-import { updateDevCommands, updateGuildCommands } from "../../utils/redeploy.ts";
+import { updateGuildCommands } from "../../utils/redeploy.ts";
+import database from "../../utils/database.ts";
 
 const command: Command = {
   dev: true,
@@ -45,10 +46,7 @@ const command: Command = {
     updateGuildCommands(payload.guildId!);
 
     // Update it in the database
-    fetch(`${Deno.env.get("DB_URL")}/v1/guilds/${payload.guildId}`, {
-      method: "PUT",
-      body: JSON.stringify({ language: value, _id: payload.guildId }),
-    });
+    database.upsert("guilds", payload.guildId!, { language: value });
 
     return {
       content: translate(payload.guildId!, "LANGUAGE_UPDATED", value),
