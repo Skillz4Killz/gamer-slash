@@ -1,4 +1,3 @@
-import { json } from "../../deps.ts";
 import database from "../utils/database.ts";
 import languages from "./mod.ts";
 

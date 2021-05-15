@@ -13,7 +13,7 @@ import {
   verifySignature,
 } from "./deps.ts";
 import { aliases, commands } from "./src/commands/mod.ts";
-import translate, { loadAllLanguages, loadLanguage, serverLanguages } from "./src/languages/translate.ts";
+import translate, { loadLanguage, serverLanguages } from "./src/languages/translate.ts";
 import { isInteractionResponse } from "./src/utils/isInteractionResponse.ts";
 import { logWebhook } from "./src/utils/logWebhook.ts";
 import hasPermissionLevel from "./src/utils/permissionLevels.ts";
