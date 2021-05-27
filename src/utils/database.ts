@@ -58,4 +58,4 @@ const database = {
 
 export default database;
 
-export type TableNames = "guilds" | "users";
+export type TableNames = "guilds" | "users" | "marriages";

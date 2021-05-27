@@ -24,6 +24,12 @@ const english: Language = {
   AVATAR_USER_DESCRIPTION: "Provide a @user to view their avatar.",
   AVATAR_DOWNLOAD_LINK: "🔗 Download Link",
 
+  // Balance Command
+  BALANCE_NAME: "balance",
+  BALANCE_DESCRIPTION: "🏦 Check the amount of coins you have in the bank.",
+  BALANCE_USER_NAME: "user",
+  BALANCE_USER_DESCRIPTION: "Provide a @user to view their bank balance.",
+
   // Gifs Command
   GIFS_NAME: "gifs",
   GIFS_DESCRIPTION: "Sends a random gif.",
