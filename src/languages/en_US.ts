@@ -30,6 +30,17 @@ const english: Language = {
   BALANCE_USER_NAME: "user",
   BALANCE_USER_DESCRIPTION: "Provide a @user to view their bank balance.",
 
+  // Coinflip Command
+  COINFLIP_NAME: "coin",
+  COINFLIP_DESCRIPTION: "🪙 Flip a coin and wager some coins on it!",
+  COINFLIP_SIDE_NAME: "side",
+  COINFLIP_SIDE_DESCRIPTION: "Choose the side of the coins you think it will be.",
+  COINFLIP_HEADS: "heads",
+  COINFLIP_TAILS: "tails",
+  COINFLIP_AMOUNT_NAME: "amount",
+  COINFLIP_AMOUNT_DESCRIPTION: "How many gamer coins would you like to bet? Maximum allowed is 10.",
+  COINFLIP_NOT_ENOUGH_COINS: "You do not have enough coins to wager on a flip.",
+
   // Gifs Command
   GIFS_NAME: "gifs",
   GIFS_DESCRIPTION: "Sends a random gif.",

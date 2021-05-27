@@ -111,12 +111,14 @@ function createOptions(guildId: string, options?: ApplicationCommandOption[]): A
   return options?.map((option) => {
     const optionName = translate(guildId, option.name);
     const optionDescription = translate(guildId, option.description);
+    const choices = option.choices?.map((choice) => ({ ...choice, name: translate(guildId, choice.name) }));
 
     return {
       ...option,
       name: optionName.toLowerCase(),
       description: optionDescription || "No description available.",
       options: option.options ? createOptions(guildId, option.options) : undefined,
+      choices,
     };
   });
 }

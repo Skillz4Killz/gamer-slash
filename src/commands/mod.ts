@@ -6,6 +6,8 @@ import {
 } from "../../deps.ts";
 import gifs from "./fun/gifs.ts";
 import random from "./fun/random.ts";
+import balance from "./gaming/currency/balance.ts";
+import coinflip from "./gaming/currency/coinflip.ts";
 import avatar from "./general/avatar.ts";
 import invite from "./general/invite.ts";
 import language from "./general/language.ts";
@@ -17,6 +19,8 @@ export const commands: Record<string, Command | undefined> = {
   // English names
   gifs,
   random,
+  balance,
+  coinflip,
   avatar,
   info,
   invite,
