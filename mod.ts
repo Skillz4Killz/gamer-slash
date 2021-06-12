@@ -108,6 +108,9 @@ async function main(request: Request) {
       json({ type: DiscordInteractionResponseTypes.DeferredChannelMessageWithSource });
 
       await loadLanguage(payload.guildId);
+    } else if (command.acknowledge) {
+      // Acknowledge the command
+      json({ type: DiscordInteractionResponseTypes.DeferredChannelMessageWithSource });
     }
 
     const result = await command.execute(payload);

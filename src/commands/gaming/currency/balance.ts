@@ -5,6 +5,7 @@ import database from "../../../utils/database.ts";
 import { Command } from "../../mod.ts";
 
 const command: Command = {
+  acknowledge: true,
   dev: true,
   options: [
     {

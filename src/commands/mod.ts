@@ -54,6 +54,8 @@ export interface Command {
   advanced?: boolean;
   /** The slash command options for this command. */
   options?: ApplicationCommandOption[];
+  /** Whether or not this command will take longer than 3s and need to acknowledge to discord. */
+  acknowledge?: boolean;
   /** The function that will be called when the command is executed. */
   execute: (
     payload: Interaction
