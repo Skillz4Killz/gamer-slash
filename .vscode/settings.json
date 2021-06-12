@@ -1,5 +1,9 @@
 {
   "deno.enable": true,
   "editor.formatOnSave": true,
-  "editor.defaultFormatter": "esbenp.prettier-vscode"
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "deno.suggest.imports.hosts": {
+    "https://src": false,
+    "https://deno.land": false
+  }
 }

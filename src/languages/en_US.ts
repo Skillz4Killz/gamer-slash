@@ -41,12 +41,25 @@ const english: Language = {
   COINFLIP_AMOUNT_DESCRIPTION: "How many gamer coins would you like to bet? Maximum allowed is 10.",
   COINFLIP_NOT_ENOUGH_COINS: "You do not have enough coins to wager on a flip.",
 
+  // Daily Command
+  DAILY_NAME: "daily",
+  DAILY_DESCRIPTION: "⏰ Obtain your daily income of gamer coins.",
+  DAILY_PATIENCE: (left: string) => `⏰ It is not yet time to obtain your daily income. You must wait **${left}**`,
+  DAILY_RESPONSE: (amount: number, total: number) =>
+    `🎉 Congrats, you got **${amount}** coins. You have a total of **${total}**.`,
+
   // Gifs Command
   GIFS_NAME: "gifs",
   GIFS_DESCRIPTION: "Sends a random gif.",
   GIF_TYPE_NAME: "type",
   GIF_TYPE_DESCRIPTION: "The type of gif such as hug, kiss, cuddle, etc...",
   GIFS_INVALID_TYPE: (types: string) => `This type of gif is not available. The valid types are: **${types}**`,
+
+  // Hourly Command
+  HOURLY_NAME: "hourly",
+  HOURLY_DESCRIPTION: "⏰ Obtain your hourly income of gamer coins.",
+  HOURLY_PATIENCE: (left: string) => `⏰ It is not yet time to obtain your hourly income. You must wait **${left}**`,
+  HOURLY_RESPONSE: (amount: number, total: number) => `🎉 Congrats, you got **${amount}** coins. You have a total of **${total}**.`,
 
   // Invite Command
   INVITE_NAME: "invite",
